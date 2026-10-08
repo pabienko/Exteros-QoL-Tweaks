@@ -1,0 +1,12 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.4.0
+Date: 08. 10. 2026
+  Major Features:
+    - First release: Fuel Stats and Recycler Return Rate, moved here from Cheats. Your settings carry over.
+    - Added Roboports: charging stations scale with quality, adjustable charging speed.
+---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+Date: 08. 10. 2026
+  Major Features:
+    - First release: Fuel Stats and Recycler Return Rate, moved here from Cheats. Your settings carry over.
+    - Added Roboports: charging stations scale with quality, adjustable charging speed.
