@@ -16,13 +16,13 @@ Each feature has its own startup switch. Nothing changes until you turn it on.
 
 ⚠️ **Roboports** - Makes charging station counts scale with quality, same as the robot and material slot counts already do, and lets you multiply the charging speed of every roboport and personal roboport. Vanilla quality already adds charging speed per level; the multiplier stacks on top of that.
 
-Fuel Stats and Recycler Return Rate replace the standalone mods Adjustable Fuel Stats and Adjustable Recycler. If you still have them installed, these two settings stay hidden; remove the old mod to use them here.
+Fuel Stats and Recycler Return Rate replace the standalone mods Adjustable Fuel Stats and Adjustable Recycler, my own earlier work, now relicensed under MIT. If you still have one of them installed, the matching feature here stays hidden entirely, including its enable switch; remove the old mod to use it here.
 
 ---
 
 ## Upgrading from Cheat Mode's Fuel Stats and Recycler Return Rate
 
-Fuel Stats and Recycler Return Rate used to live in [Exteros' QoL Cheats](https://mods.factorio.com/mod/Exteros-QoL-Cheats) (0.3.2/0.4.2 and earlier). Install this addon alongside Cheats 0.3.3/0.4.3 or newer and your settings carry over unchanged; just turn the matching switch back on here. If you keep an older Cheats, Factorio will refuse to load both at once rather than silently dropping one of the settings.
+Fuel Stats and Recycler Return Rate used to live in [Exteros' QoL System - Cheats](https://mods.factorio.com/mod/Exteros-QoL-Cheats) (0.3.2/0.4.2 and earlier). Install this addon alongside Cheats 0.3.3/0.4.3 or newer and your settings carry over unchanged; just turn the matching switch back on here. If you keep an older Cheats, Factorio will refuse to load both at once rather than silently dropping one of the settings.
 
 ## Installation
 
@@ -31,7 +31,7 @@ Install through the in-game mod manager, or download it from the [Factorio Mod P
 ## Compatibility
 
 - **Factorio 2.0** and **2.1** - released as two rows built from the same source, like the QoL System.
-- **Space Age**, **Quality**, and **Elevated Rails** - supported.
+- **Space Age** and **Quality** - supported.
 - **Other mods** - Fuel Stats and Recycler Return Rate switch themselves off when Adjustable Fuel Stats or Adjustable Recycler is installed.
 - **Missing a mod?** I can only switch off features for mods I know about, and there are far too many on the mod portal to find them all. If you use a mod that does the same thing as one of my features and both run at once, please [open an issue](https://github.com/pabienko/Exteros-QoL-Tweaks/issues) with its name and I will add it.
 
@@ -47,4 +47,3 @@ Contact: [GitHub Profile](https://github.com/pabienko)
 
 * 🇬🇧 English
 * 🇨🇿 Czech
-* 🇷🇺 Russian - mod name and description only, the rest falls back to English until someone contributes the setting translations.

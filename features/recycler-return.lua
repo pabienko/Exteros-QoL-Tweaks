@@ -9,7 +9,8 @@ local function is_pure_recycling(recipe)
   if type(recipe.categories) == "table" then
     return #recipe.categories == 1 and recipe.categories[1] == "recycling"
   end
-  return recipe.category == "recycling"
+  if recipe.category ~= "recycling" then return false end
+  return recipe.additional_categories == nil or #recipe.additional_categories == 0
 end
 
 function M.apply()

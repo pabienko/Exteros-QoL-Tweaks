@@ -11,20 +11,6 @@ end
 data:extend({
   {
     type = "bool-setting",
-    name = "exteros-qol-tweaks-fuel-stats-enabled",
-    setting_type = "startup",
-    default_value = false,
-    order = "a-a"
-  },
-  {
-    type = "bool-setting",
-    name = "exteros-qol-tweaks-recycler-return-enabled",
-    setting_type = "startup",
-    default_value = false,
-    order = "a-b"
-  },
-  {
-    type = "bool-setting",
     name = "exteros-qol-tweaks-roboports-enabled",
     setting_type = "startup",
     default_value = false,
@@ -35,7 +21,7 @@ data:extend({
     name = "exteros-qol-tweaks-roboport-charging-quality-scaling",
     setting_type = "startup",
     default_value = false,
-    order = "b-a"
+    order = "d-a"
   },
   {
     type = "double-setting",
@@ -44,12 +30,19 @@ data:extend({
     default_value = 1.0,
     minimum_value = 0.1,
     maximum_value = 10.0,
-    order = "b-b"
+    order = "d-b"
   }
 })
 
 if (mods["quality"] or mods["recycler"]) and not blocked("cheat-recycler") then
   data:extend({
+    {
+      type = "bool-setting",
+      name = "exteros-qol-tweaks-recycler-return-enabled",
+      setting_type = "startup",
+      default_value = false,
+      order = "a-b"
+    },
     {
       type = "int-setting",
       name = "exteros-qol-cheat-recycler-return-rate",
@@ -57,7 +50,7 @@ if (mods["quality"] or mods["recycler"]) and not blocked("cheat-recycler") then
       default_value = 25,
       minimum_value = 1,
       maximum_value = 100,
-      order = "d-a"
+      order = "c-a"
     },
     {
       type = "string-setting",
@@ -65,12 +58,22 @@ if (mods["quality"] or mods["recycler"]) and not blocked("cheat-recycler") then
       setting_type = "startup",
       default_value = "self-only",
       allowed_values = {"self-only", "all"},
-      order = "d-b"
+      order = "c-b"
     }
   })
 end
 
 if not blocked("cheat-fuel") then
+  data:extend({
+    {
+      type = "bool-setting",
+      name = "exteros-qol-tweaks-fuel-stats-enabled",
+      setting_type = "startup",
+      default_value = false,
+      order = "a-a"
+    }
+  })
+
   for index, fuel in ipairs(fuels) do
     if not fuel.space_age or mods["space-age"] then
       local nn = string.format("%02d", index)
@@ -83,7 +86,7 @@ if not blocked("cheat-fuel") then
           setting_type = "startup",
           default_value = fuel.energy,
           minimum_value = 0.01,
-          order = "e-" .. nn .. "-a",
+          order = "b-" .. nn .. "-a",
           localised_name = { "exteros-qol-tweaks.fuel-energy-name" .. name_suffix, { "item-name." .. fuel.name } },
           localised_description = { "exteros-qol-tweaks.fuel-energy-description", { "item-name." .. fuel.name }, tostring(fuel.energy) }
         }
@@ -97,7 +100,7 @@ if not blocked("cheat-fuel") then
           default_value = fuel.accel,
           minimum_value = 0,
           maximum_value = 20,
-          order = "e-" .. nn .. "-b",
+          order = "b-" .. nn .. "-b",
           localised_name = { "exteros-qol-tweaks.fuel-accel-name" .. name_suffix, { "item-name." .. fuel.name } },
           localised_description = { "exteros-qol-tweaks.fuel-accel-description", { "item-name." .. fuel.name }, tostring(fuel.accel) }
         })
@@ -111,7 +114,7 @@ if not blocked("cheat-fuel") then
           default_value = fuel.speed,
           minimum_value = 0,
           maximum_value = 20,
-          order = "e-" .. nn .. "-c",
+          order = "b-" .. nn .. "-c",
           localised_name = { "exteros-qol-tweaks.fuel-speed-name" .. name_suffix, { "item-name." .. fuel.name } },
           localised_description = { "exteros-qol-tweaks.fuel-speed-description", { "item-name." .. fuel.name }, tostring(fuel.speed) }
         })

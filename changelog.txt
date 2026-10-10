@@ -1,4 +1,18 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.1
+Date: 10. 10. 2026
+  Bugfixes:
+    - Internal fixes and improvements.
+  Locale:
+    - Removed the incomplete Russian translation.
+---------------------------------------------------------------------------------------------------
+Version: 0.3.1
+Date: 10. 10. 2026
+  Bugfixes:
+    - Internal fixes and improvements.
+  Locale:
+    - Removed the incomplete Russian translation.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.0
 Date: 08. 10. 2026
   Major Features:
