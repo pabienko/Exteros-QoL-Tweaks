@@ -1,5 +1,4 @@
----@diagnostic disable-next-line: unresolved-require
-local debug = require("__Exteros-QoL-System__.core.debug")
+local debug = require("debug")
 
 local M = {}
 
@@ -53,11 +52,11 @@ local function apply_quality_scaling()
 end
 
 function M.apply()
-  if settings.startup["exteros-qol-tweaks-roboport-charging-quality-scaling"].value then
+  if settings.startup["exteros-tweaks-roboports-charging-quality-scaling"].value then
     apply_quality_scaling()
   end
 
-  local multiplier = settings.startup["exteros-qol-tweaks-roboport-charging-speed-multiplier"].value --[[@as number]]
+  local multiplier = settings.startup["exteros-tweaks-roboports-charging-speed-multiplier"].value --[[@as number]]
   if multiplier ~= 1.0 then
     apply_charging_speed(multiplier)
   end

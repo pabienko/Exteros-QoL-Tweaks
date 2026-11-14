@@ -1,11 +1,9 @@
-local HUB_GROUPS = {}
+local lib_event = require("__exteros-lib__.event")
+local migrate = require("__exteros-lib__.internal.migrate")
 
-remote.add_interface("exteros-qol-addon-tweaks", {
-  hub_settings = function()
-    return {
-      color = "#8FD18F",
-      groups = HUB_GROUPS
-    }
-  end,
-  set_hub_setting = function(_player_index, _name, _value, _scope) end,
+migrate.register({
+  version = 1,
+  init = function() end,
 })
+
+lib_event.register()

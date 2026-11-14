@@ -1,79 +1,46 @@
----@diagnostic disable-next-line: unresolved-require
-local conflicts = require("__Exteros-QoL-System__.core.conflicts")
+local manifest_lib = require("__exteros-lib__.internal.manifest")
+local lib_settings = require("__exteros-lib__.internal.settings")
+local manifest = require("manifest")
 local fuels = require("prototypes.fuels")
 
----@param feature string
----@return boolean
-local function blocked(feature)
-  return conflicts.is_blocked(feature, mods)
+---@return ExterosLibManifest
+local function manifest_for_startup()
+  if mods["recycler"] then
+    return manifest
+  end
+
+  local filtered = {}
+  for key, value in pairs(manifest) do
+    filtered[key] = value
+  end
+
+  local features = {}
+  for _, feature in ipairs(manifest.features) do
+    if feature.name ~= "recycler-return" then
+      table.insert(features, feature)
+    end
+  end
+  filtered.features = features
+
+  return filtered
 end
 
-data:extend({
-  {
-    type = "bool-setting",
-    name = "exteros-qol-tweaks-roboports-enabled",
-    setting_type = "startup",
-    default_value = false,
-    order = "a-c"
-  },
-  {
-    type = "bool-setting",
-    name = "exteros-qol-tweaks-roboport-charging-quality-scaling",
-    setting_type = "startup",
-    default_value = false,
-    order = "d-a"
-  },
-  {
-    type = "double-setting",
-    name = "exteros-qol-tweaks-roboport-charging-speed-multiplier",
-    setting_type = "startup",
-    default_value = 1.0,
-    minimum_value = 0.1,
-    maximum_value = 10.0,
-    order = "d-b"
-  }
-})
+local startup_manifest = manifest_for_startup()
+lib_settings.extend(startup_manifest)
 
-if (mods["quality"] or mods["recycler"]) and not blocked("cheat-recycler") then
-  data:extend({
-    {
-      type = "bool-setting",
-      name = "exteros-qol-tweaks-recycler-return-enabled",
-      setting_type = "startup",
-      default_value = false,
-      order = "a-b"
-    },
-    {
-      type = "int-setting",
-      name = "exteros-qol-cheat-recycler-return-rate",
-      setting_type = "startup",
-      default_value = 25,
-      minimum_value = 1,
-      maximum_value = 100,
-      order = "c-a"
-    },
-    {
-      type = "string-setting",
-      name = "exteros-qol-cheat-recycler-scope",
-      setting_type = "startup",
-      default_value = "self-only",
-      allowed_values = {"self-only", "all"},
-      order = "c-b"
-    }
-  })
+---@type ExterosLibFeatureDef?
+local fuel_stats_feature = nil
+local fuel_stats_feature_index = nil
+for index, feature in ipairs(startup_manifest.features) do
+  if feature.name == "fuel-stats" then
+    fuel_stats_feature = feature
+    fuel_stats_feature_index = index
+    break
+  end
 end
 
-if not blocked("cheat-fuel") then
-  data:extend({
-    {
-      type = "bool-setting",
-      name = "exteros-qol-tweaks-fuel-stats-enabled",
-      setting_type = "startup",
-      default_value = false,
-      order = "a-a"
-    }
-  })
-
+if fuel_stats_feature and not manifest_lib.blocked_by(fuel_stats_feature, mods) then
+  local feature_order = string.format("%03d", fuel_stats_feature_index)
   for index, fuel in ipairs(fuels) do
     if not fuel.space_age or mods["space-age"] then
       local nn = string.format("%02d", index)
@@ -82,41 +49,41 @@ if not blocked("cheat-fuel") then
       local fuel_settings = {
         {
           type = "double-setting",
-          name = "exteros-qol-cheat-fuel-" .. fuel.name .. "-energy",
+          name = "exteros-tweaks-fuel-stats-" .. fuel.name .. "-energy",
           setting_type = "startup",
           default_value = fuel.energy,
           minimum_value = 0.01,
-          order = "b-" .. nn .. "-a",
-          localised_name = { "exteros-qol-tweaks.fuel-energy-name" .. name_suffix, { "item-name." .. fuel.name } },
-          localised_description = { "exteros-qol-tweaks.fuel-energy-description", { "item-name." .. fuel.name }, tostring(fuel.energy) }
+          order = feature_order .. "-002-" .. nn .. "-a",
+          localised_name = { "exteros-tweaks.fuel-energy-name" .. name_suffix, { "item-name." .. fuel.name } },
+          localised_description = { "exteros-tweaks.fuel-energy-description", { "item-name." .. fuel.name }, tostring(fuel.energy) }
         }
       }
 
       if fuel.accel ~= nil then
         table.insert(fuel_settings, {
           type = "double-setting",
-          name = "exteros-qol-cheat-fuel-" .. fuel.name .. "-accel",
+          name = "exteros-tweaks-fuel-stats-" .. fuel.name .. "-accel",
           setting_type = "startup",
           default_value = fuel.accel,
           minimum_value = 0,
           maximum_value = 20,
-          order = "b-" .. nn .. "-b",
-          localised_name = { "exteros-qol-tweaks.fuel-accel-name" .. name_suffix, { "item-name." .. fuel.name } },
-          localised_description = { "exteros-qol-tweaks.fuel-accel-description", { "item-name." .. fuel.name }, tostring(fuel.accel) }
+          order = feature_order .. "-002-" .. nn .. "-b",
+          localised_name = { "exteros-tweaks.fuel-accel-name" .. name_suffix, { "item-name." .. fuel.name } },
+          localised_description = { "exteros-tweaks.fuel-accel-description", { "item-name." .. fuel.name }, tostring(fuel.accel) }
         })
       end
 
       if fuel.speed ~= nil then
         table.insert(fuel_settings, {
           type = "double-setting",
-          name = "exteros-qol-cheat-fuel-" .. fuel.name .. "-speed",
+          name = "exteros-tweaks-fuel-stats-" .. fuel.name .. "-speed",
           setting_type = "startup",
           default_value = fuel.speed,
           minimum_value = 0,
           maximum_value = 20,
-          order = "b-" .. nn .. "-c",
-          localised_name = { "exteros-qol-tweaks.fuel-speed-name" .. name_suffix, { "item-name." .. fuel.name } },
-          localised_description = { "exteros-qol-tweaks.fuel-speed-description", { "item-name." .. fuel.name }, tostring(fuel.speed) }
+          order = feature_order .. "-002-" .. nn .. "-c",
+          localised_name = { "exteros-tweaks.fuel-speed-name" .. name_suffix, { "item-name." .. fuel.name } },
+          localised_description = { "exteros-tweaks.fuel-speed-description", { "item-name." .. fuel.name }, tostring(fuel.speed) }
         })
       end
 

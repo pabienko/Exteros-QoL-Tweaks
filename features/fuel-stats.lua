@@ -1,5 +1,4 @@
----@diagnostic disable-next-line: unresolved-require
-local debug = require("__Exteros-QoL-System__.core.debug")
+local debug = require("debug")
 local fuels = require("prototypes.fuels")
 
 local M = {}
@@ -33,20 +32,20 @@ function M.apply()
     if not item then
       debug.log("Fuel item '" .. fuel.name .. "' not found, skipping.", "tweaks")
     else
-      local energy_setting = settings.startup["exteros-qol-cheat-fuel-" .. fuel.name .. "-energy"]
+      local energy_setting = settings.startup["exteros-tweaks-fuel-stats-" .. fuel.name .. "-energy"]
       if energy_setting and energy_setting.value ~= fuel.energy then
         item.fuel_value = format_energy(energy_setting.value --[[@as number]])
       end
 
       if fuel.accel ~= nil then
-        local accel_setting = settings.startup["exteros-qol-cheat-fuel-" .. fuel.name .. "-accel"]
+        local accel_setting = settings.startup["exteros-tweaks-fuel-stats-" .. fuel.name .. "-accel"]
         if accel_setting and accel_setting.value ~= fuel.accel then
           item.fuel_acceleration_multiplier = accel_setting.value --[[@as number]]
         end
       end
 
       if fuel.speed ~= nil then
-        local speed_setting = settings.startup["exteros-qol-cheat-fuel-" .. fuel.name .. "-speed"]
+        local speed_setting = settings.startup["exteros-tweaks-fuel-stats-" .. fuel.name .. "-speed"]
         if speed_setting and speed_setting.value ~= fuel.speed then
           item.fuel_top_speed_multiplier = speed_setting.value --[[@as number]]
         end

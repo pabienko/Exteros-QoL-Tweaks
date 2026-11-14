@@ -1,27 +1,22 @@
----@diagnostic disable-next-line: unresolved-require
-local debug = require("__Exteros-QoL-System__.core.debug")
+local debug = require("debug")
 
 local M = {}
 
 ---@param recipe table
 ---@return boolean
 local function is_pure_recycling(recipe)
-  if type(recipe.categories) == "table" then
-    return #recipe.categories == 1 and recipe.categories[1] == "recycling"
-  end
-  if recipe.category ~= "recycling" then return false end
-  return recipe.additional_categories == nil or #recipe.additional_categories == 0
+  return type(recipe.categories) == "table" and #recipe.categories == 1 and recipe.categories[1] == "recycling"
 end
 
 function M.apply()
-  local setting = settings.startup["exteros-qol-cheat-recycler-return-rate"]
+  local setting = settings.startup["exteros-tweaks-recycler-return-rate"]
   if not setting then return end
 
   local rate = setting.value --[[@as number]]
   if rate == 25 then return end
 
   local k = rate / 25
-  local scope_setting = settings.startup["exteros-qol-cheat-recycler-scope"]
+  local scope_setting = settings.startup["exteros-tweaks-recycler-return-scope"]
   local scope = scope_setting and scope_setting.value or "self-only"
 
   for _, recipe in pairs(data.raw.recipe) do
@@ -33,8 +28,6 @@ function M.apply()
         local result = recipe.results[1] --[[@as table]]
         if result.independent_probability ~= nil then
           result.independent_probability = rate / 100
-        elseif result.probability ~= nil then
-          result.probability = rate / 100
         end
       elseif scope == "all" then
         for _, result in pairs(recipe.results) do

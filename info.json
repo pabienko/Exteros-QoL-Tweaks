@@ -1,17 +1,17 @@
 {
   "name": "Exteros-QoL-Tweaks",
-  "version": "0.3.1",
-  "title": "Exteros Quality of Life System - Tweaks",
+  "version": "1.0.0",
+  "title": "Exteros' Tweaks",
   "author": "Exteros",
   "contact": "https://github.com/pabienko",
   "homepage": "https://github.com/pabienko/Exteros-QoL-Tweaks",
-  "factorio_version": "2.0",
+  "factorio_version": "2.1",
   "dependencies": [
-    "base >= 2.0",
-    "Exteros-QoL-System >= 0.3.9",
-    "? space-age >= 2.0",
-    "? quality >= 2.0",
-    "? Exteros-QoL-Cheats >= 0.3.3"
+    "base >= 2.1.24",
+    "exteros-lib >= 1.0.0",
+    "? space-age >= 2.1.24",
+    "? quality >= 2.1.24",
+    "? recycler >= 2.1.24"
   ],
-  "description": "Tweak addon for Exteros' QoL System: fuel stats (fuel value, acceleration, top speed), recycler return rate for quality upcycling, and roboport charging tweaks (quality-scaled charging stations, adjustable charging speed). Replaces Adjustable Fuel Stats and Adjustable Recycler. Nothing changes until you enable a feature's switch."
+  "description": "Standalone tweaks mod: fuel stats, recycler return rate for quality upcycling, and roboport charging. Replaces Adjustable Fuel Stats and Adjustable Recycler; nothing changes until you flip a switch."
 }
